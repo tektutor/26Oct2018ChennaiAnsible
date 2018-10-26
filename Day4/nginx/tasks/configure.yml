@@ -1,0 +1,13 @@
+---
+- name: Configure nginx web server in Ubuntu
+  copy: src=default dest=/etc/nginx/sites-available/default
+  when: ansible_distribution == "Ubuntu"
+  notify:
+    - Restart nginx service
+
+- name: Configure nginx web server in CentOS 
+  copy: src=default.conf dest=/etc/nginx/conf.d/default.conf
+  when: ansible_distribution == "CentOS"
+  notify:
+    - Restart nginx service
+...

@@ -1,0 +1,14 @@
+- name: Demonstrates further use of register variable
+  hosts: localhost
+  tasks:
+    - command: /bin/true
+      register: result
+      ignore_errors: True
+
+    - debug: var=result
+
+    - debug: msg="Previous task failed"
+      when : result.rc != 0
+
+    - debug: msg="Previous task was successfully executed"
+      when : result.rc == 0 

@@ -1,0 +1,5 @@
+---
+# handlers file for nginx
+- name: Restart nginx service
+  command: service nginx restart
+...

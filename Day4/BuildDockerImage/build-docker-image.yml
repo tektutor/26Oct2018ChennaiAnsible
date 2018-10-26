@@ -1,0 +1,16 @@
+- name: Demonstrates building docker images from ansible playbook
+  hosts: localhost
+  tasks:
+    - name: Build ubuntu ansible image
+      docker_image:
+          name: "tektutor/ansible-ubuntu"
+          state: present
+          dockerfile: UbuntuDockerfile
+          path: .
+
+    - name: Build centos ansible image
+      docker_image:
+          name: "tektutor/ansible-centos"
+          state: present
+          dockerfile: CentosDockerfile
+          path: .

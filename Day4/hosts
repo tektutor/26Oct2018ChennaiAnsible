@@ -1,0 +1,6 @@
+[all]
+ubuntu1 ansible_port=2001 ansible_user=root ansible_host=localhost ansible_private_key_file=/root/.ssh/id_rsa
+ubuntu2 ansible_port=2002 ansible_user=root ansible_host=localhost ansible_private_key_file=/root/.ssh/id_rsa
+centos1 ansible_port=3001 ansible_user=root ansible_host=localhost ansible_private_key_file=/root/.ssh/id_rsa
+centos2 ansible_port=3002 ansible_user=root ansible_host=localhost ansible_private_key_file=/root/.ssh/id_rsa
+jenkins1 ansible_port=4001 ansible_user=jenkins ansible_password=jenkins ansible_become_user=root ansible_become_password=jenkins ansible_host=localhost ansible_private_key_file=/root/.ssh/id_rsa

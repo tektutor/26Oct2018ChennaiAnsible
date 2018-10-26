@@ -1,0 +1,46 @@
+My TekTutor Blog
+http://www.tektutor.org/commonly-used-docker-commands/
+
+Pulling/Downloading Docker image
+docker pull ubuntu:16.04
+
+Deleting an image
+docker rmi ubuntu
+
+Finding more details about image
+docker image inspect ubuntu
+
+Create a Docker container in interactive/foreground mode
+docker run -it ubuntu /bin/bash
+
+Create a Docker container in detached/background mode
+docker run -dit ubuntu /bin/bash
+
+Finding more details about container
+docker inspect container_name 
+
+Finding IP address of a container
+docker inspect container_name | grep IPA
+or
+docker inspect -f {{.NetworkSettings.IPAddress}} container_name
+
+Stoping a running container
+docker stop container_name
+
+Removing a container
+docker rm container_name
+
+Forcefully remvoing a running container without stopping
+docker rm -f container_name
+
+Starting an exited container
+docker start container_name
+
+Opening a shell inside running container
+docker exec -it container_name /bin/bash
+
+Stopping multiple container graciously and then removing them
+docker stop $(docker ps -q) && docker rm $(docker ps -aq)
+
+Directly removing multiple containers without stopping them
+docker rm -f $(docker ps -aq)

@@ -1,0 +1,49 @@
+- name: Install, configure and deploy nginx in CentOS and Ubuntu containers
+  hosts: all
+  vars:
+    - automation_tool: Ansible
+    - provisioner_tool: Docker
+    - greeting_msg: DevOps
+  tasks:
+   - name: Install nginx in Ubuntu container
+     apt: name=nginx state=latest update_cache=yes
+     when: ( ansible_distribution == "Ubuntu" and ansible_os_family == "Debian" )
+
+   - name: Install epel-release package in CentOS
+     yum: name=epel-release state=latest 
+     when: ( ansible_distribution == "CentOS" and ansible_os_family == "RedHat" )
+
+   - name: Install nginx in CentOS
+     yum: name=nginx state=latest 
+     when: ( ansible_distribution == "CentOS" and ansible_os_family == "RedHat" )
+
+   - name: Configure nginx web root folder in Ubuntu container
+     copy: src=default dest=/etc/nginx/sites-available/default
+     when: ( ansible_distribution == "Ubuntu" and ansible_os_family == "Debian" )
+
+   - name: Configure nginx web root folder in CentOS container
+     copy: src=default.conf dest=/etc/nginx/conf.d/default.conf
+     when: ( ansible_distribution == "CentOS" and ansible_os_family == "RedHat" )
+
+   - name: Create web root folder
+     file: path=/var/html mode=0777 state=directory
+
+   - name: Deploy web page in nginx web server
+     template: src=index.html.j2 dest=/var/html/index.html
+
+   - name: Restart nginx web server
+     command: service nginx restart
+
+- name: Test nginx web servers
+  hosts: localhost
+  vars:
+    urls:
+      - http://localhost:8001
+      - http://localhost:8002
+      - http://localhost:9001
+      - http://localhost:9002
+
+  tasks:
+    - name: Navigate to nginx web page
+      shell: "curl {{item}}"
+      with_list: "{{urls}}"

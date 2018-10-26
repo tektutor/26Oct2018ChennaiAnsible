@@ -1,0 +1,9 @@
+- name: Demonstrates user sudo elevation
+  hosts: jenkins1
+  become: yes
+  tasks:
+    - name: Install JDK 
+      apt: name=default-jdk state=latest update_cache=yes
+
+    - name: Install Maven
+      apt: name=maven state=latest update_cache=yes

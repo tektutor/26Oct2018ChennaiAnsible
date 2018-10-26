@@ -1,0 +1,16 @@
+---
+- name: Install nginx in Ubuntu
+  when: ansible_distribution == "Ubuntu"
+  apt: name=nginx state=latest update_cache=yes
+  notify:
+    - Restart nginx service
+
+- name: Install epel-release package in CentOS
+  when: ansible_distribution == "CentOS"
+  yum: name=epel-release state=latest
+
+- name: Install nginx in CentOS
+  when: ansible_distribution == "CentOS"
+  yum: name=nginx state=latest
+  notify:
+    - Restart nginx service

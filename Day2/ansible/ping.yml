@@ -1,0 +1,5 @@
+- name: This play will demonstrate use of ping ansible module
+  hosts: all 
+  tasks:
+   - name: Ping the container
+     ping:

@@ -1,0 +1,10 @@
+- name: Demonstrates use of list variable
+  hosts: ubuntu
+  vars:
+    - software_tools:
+         - vim
+         - tree
+         - iputils-ping
+  tasks:
+   - name: Install the tools
+     apt: name="{{software_tools}}" state=latest update_cache=yes

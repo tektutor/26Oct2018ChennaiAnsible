@@ -1,0 +1,14 @@
+- name: Demonstrates using our custom add module
+  hosts: localhost
+  tasks:
+    - name: Invoke our custom module
+      add: firstValue=100 secondValue=200
+      register: result
+
+    - debug: msg='The result is {{result}}'
+
+    - name: Invoke our print custom module
+      print: msg='Welcome to Ansible Custom Module!' 
+      register: response
+
+    - debug: var=response

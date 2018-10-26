@@ -1,0 +1,23 @@
+- name: Install nginx web server
+  hosts: all
+  tasks:
+    - name: Install nginx web server
+      apt : name=nginx state=latest update_cache=yes
+
+    - name: Start nginx web server
+      shell: service nginx start 
+
+- name: Test if nginx web page is accessible
+  hosts: localhost
+  tasks:
+     - name: Curl the web page in ubuntu1 container
+       shell: curl http://localhost:8001
+       register: output
+
+     - debug: var=output
+
+     - name: Curl the web page in ubuntu2 container
+       shell: curl http://localhost:8002
+       register: output
+
+     - debug: var=output

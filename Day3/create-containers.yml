@@ -1,0 +1,24 @@
+- name: Demonstrates use of docker modules
+  hosts: localhost
+  vars_files:
+     - conf_file
+  tasks:
+    - name: Create ubuntu containers
+      docker_container:
+         image: tektutor/ansible-ubuntu
+         name: "ubuntu{{item}}"
+         state: "{{desired_state}}" 
+         ports:
+           - "2{{item}}:22"
+           - "8{{item}}:80"
+      with_sequence: start=1 end="{{containers_required}}" format="%03d"
+
+    - name: Create centos containers
+      docker_container:
+         image: tektutor/ansible-centos
+         name: "centos{{item}}"
+         state: "{{desired_state}}"
+         ports:
+           - "3{{item}}:22"
+           - "9{{item}}:80"
+      with_sequence: start=1 end="{{containers_required}}" format="%03d"

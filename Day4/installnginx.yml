@@ -1,0 +1,36 @@
+- name: Installs, Configures and deploys web page into newly setup nginx web server
+  hosts: all
+  vars:
+    - automation_tool: Ansible
+    - provisioner_tool: Docker
+    - greeting_msg: DevOps
+  handlers:
+    - name: Restart the nginx web service
+      command: service nginx restart
+  tasks:
+    - name: Install nginx web server
+      apt: name=nginx state=latest update_cache=yes
+      notify:
+        - Restart the nginx web service
+
+    - name: Configure nginx web root folder
+      copy: src=default dest=/etc/nginx/sites-available/default
+      notify:
+        - Restart the nginx web service
+
+    - name: Create the web root folder
+      file: path=/var/html mode=0777 state=directory 
+
+    - name: Deploy our web page 
+      template: src=index.html.j2 dest=/var/html/index.html
+
+
+- name: Test the deployed web page
+  hosts: localhost
+  tasks:
+    - name: Check our web page
+      shell: "curl http://localhost:800{{item}}"
+      with_sequence: start=1 end=2
+      register: output
+   
+    - debug: var=output
