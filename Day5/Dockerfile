@@ -1,6 +1,7 @@
 FROM ubuntu:16.04
 MAINTAINER Jeganathan Swaminathan <jegan@tektutor.org>
 
+
 #Install ssh server and python for ansible nodes
 RUN apt-get update && apt-get install -y openssh-server python-minimal 
 RUN apt-get update && apt-get install -y git default-jdk maven
