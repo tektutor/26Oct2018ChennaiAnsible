@@ -5,3 +5,5 @@
       docker_image:
           name: "tektutor/ansible-ubuntu"
           state: present
+          dockerfile: Dockerfile
+          path: .
